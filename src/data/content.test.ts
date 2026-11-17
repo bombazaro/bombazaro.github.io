@@ -80,3 +80,9 @@ test('no_arrow_characters_in_any_label_or_text', () => {
 test('contact_labels_are_plain_names_without_number_or_handle', () => {
   expect(contactLabels).toEqual({ whatsapp: 'WhatsApp', instagram: 'Instagram' });
 });
+
+test('hosting_is_listed_fluxus_netlify_livrum_vercel_and_supabase', () => {
+  const stack = (id: string) => projects.find((p) => p.id === id)!.stack;
+  expect(stack('fluxus')).toContain('Netlify');
+  expect(stack('livrum')).toEqual(expect.arrayContaining(['Vercel', 'Supabase']));
+});

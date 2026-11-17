@@ -150,10 +150,9 @@ h1 { font-size: clamp(38px, 6vw, 68px); line-height: 1.04; letter-spacing: -.03e
 @media (max-width: 860px) {
   .hero { padding-top: 96px; }
   .hero .grid { grid-template-columns: 1fr; }
-  .stack { height: 300px; }
-  .avatar { width: 150px; height: 150px; margin-left: -75px; top: 6px; }
-  .codecard { display: none; }
-  .fluxcard { left: 50%; margin-left: -107px; bottom: 0; transform: rotate(-3deg); }
+  .stack { height: 250px; }
+  .avatar { width: 220px; height: 220px; margin-left: -110px; top: 8px; }
+  .codecard, .fluxcard { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .badge i, .caret { animation: none; }

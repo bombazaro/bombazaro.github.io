@@ -64,7 +64,7 @@ export const projects: Project[] = [
     title: 'Fluxus',
     summary:
       'App de contas a pagar que calcula sozinho o que falta pagar e quanto sobra do mês. Funciona 100% offline.',
-    stack: ['Expo', 'TypeScript', 'SQLite'],
+    stack: ['Expo', 'TypeScript', 'SQLite', 'Netlify'],
     image: { src: '/projetos/fluxus.webp', alt: 'Telas Início e Contas do app Fluxus no modo escuro' },
     actions: [
       { label: 'Abrir na web', href: 'https://fluxus-financas.netlify.app', variant: 'main' },
@@ -79,7 +79,7 @@ export const projects: Project[] = [
     summary:
       'RPG gamificado que incentiva jovens a ler, com XP, badges e quizzes. Projeto do IFSC feito em grupo.',
     note: 'Versão inicial em React e Java, feita em grupo; depois reescrita em Python pelo colega. Participei de várias partes (83 commits no repositório atual).',
-    stack: ['React', 'Java', 'Python'],
+    stack: ['React', 'Java', 'Python', 'Supabase', 'Vercel'],
     image: { src: '/projetos/livrum.webp', alt: 'Tela de entrada do Livrum, com o gato mascote e o texto "A sua próxima aventura literária começa aqui"' },
     actions: [
       { label: 'Ver site', href: 'https://livrum-ifsc1.vercel.app', variant: 'main' },
