@@ -232,3 +232,9 @@ footer { padding: 36px 0 44px; color: var(--dim); font-size: 14px; text-align: c
 .about > .rv, .about > div { min-width: 0; }
 .trail { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
 @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } }
+
+/* imagem inteira com fundo desfocado atrás (destaque) */
+.big .shot::before {
+  content: ""; position: absolute; inset: -20px; background: var(--shot) center / cover; filter: blur(22px) saturate(1.2); opacity: .55;
+}
+.big .shot img { object-fit: contain; object-position: center; z-index: 1; }

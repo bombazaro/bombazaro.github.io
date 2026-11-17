@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type CSSProperties, useState } from 'react';
 import type { Project } from '../data/content';
 import Button from './Button';
 import Chip from './Chip';
@@ -9,7 +9,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <article className={`glow pcard${featured ? ' big' : ''}`}>
-      <div className="shot">
+      <div className="shot" style={image ? ({ '--shot': `url(${image.src})` } as CSSProperties) : undefined}>
         {image && !imageFailed ? (
           <img
             src={image.src}

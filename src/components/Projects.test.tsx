@@ -73,3 +73,10 @@ test('section_has_id_projetos_and_h2', () => {
   expect(container.querySelector('section#projetos')).not.toBeNull();
   expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Coisas que eu construí e estão no ar.');
 });
+
+test('shot_exposes_its_image_as_css_variable_for_the_blurred_backdrop', () => {
+  render(<Projects />);
+  const shot = card(/Padaria/).querySelector('.shot') as HTMLElement;
+  expect(shot.getAttribute('style')).toContain('--shot');
+  expect(shot.getAttribute('style')).toContain('/projetos/padaria.webp');
+});
