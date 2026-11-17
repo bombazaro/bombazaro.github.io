@@ -88,7 +88,6 @@ export const projects: Project[] = [
     image: { src: '/projetos/livrum.webp', alt: 'Tela inicial do Livrum depois do login, com nível, XP, fases concluídas e o gato mascote lendo sobre uma pilha de livros' },
     actions: [
       { label: 'Ver site', href: 'https://livrum-ifsc1.vercel.app', variant: 'main' },
-      { label: 'Código', href: 'https://github.com/anthyer/livrum', variant: 'ghost' },
     ],
   },
 ];

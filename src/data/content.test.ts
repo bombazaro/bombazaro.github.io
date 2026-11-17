@@ -28,7 +28,8 @@ test('padaria_and_livrum_actions_match_spec', () => {
     'https://padariabombazaros.netlify.app',
     'https://github.com/bombazaro/padaria-bombazaros',
   ]);
-  expect(hrefs('livrum')).toEqual(['https://livrum-ifsc1.vercel.app', 'https://github.com/anthyer/livrum']);
+  // The Livrum repository is private (it belongs to a teammate), so it gets no public Código button.
+  expect(hrefs('livrum')).toEqual(['https://livrum-ifsc1.vercel.app']);
 });
 
 test('livrum_note_mentions_python_and_83_commits', () => {
@@ -102,4 +103,9 @@ test('services_are_three_with_title_and_text_and_no_prices', () => {
     expect(s.text.length).toBeGreaterThan(30);
   });
   expect(JSON.stringify(services)).not.toMatch(/R\$|\d+\s*reais/i);
+});
+
+test('no_action_links_to_a_private_repository', () => {
+  const hrefsAll = projects.flatMap((p) => p.actions.map((a) => a.href));
+  expect(hrefsAll.join(' ')).not.toContain('anthyer/livrum');
 });

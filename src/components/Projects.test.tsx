@@ -39,7 +39,7 @@ test('livrum_card_shows_em_equipe_badge_and_honest_note', () => {
 test('every_action_link_opens_in_new_tab_with_noopener', () => {
   render(<Projects />);
   const links = screen.getAllByRole('link');
-  expect(links).toHaveLength(7);
+  expect(links).toHaveLength(6);
   links.forEach((l) => {
     expect(l).toHaveAttribute('target', '_blank');
     expect(l).toHaveAttribute('rel', 'noopener noreferrer');
