@@ -75,15 +75,6 @@ test('GlassStack_does_not_move_layers_when_reduced_motion', () => {
   container.querySelectorAll<HTMLElement>('.layer').forEach((l) => expect(l.style.transform).toBe(''));
 });
 
-test('GlassStack_moves_layers_with_fine_pointer', () => {
-  mockMedia({ reduceMotion: false, finePointer: true });
-  const { container } = render(<GlassStack />);
-  fireEvent(document, new MouseEvent('pointermove', { clientX: 10, clientY: 10 }));
-  const layers = container.querySelectorAll<HTMLElement>('.layer');
-  expect(layers.length).toBe(3);
-  layers.forEach((l) => expect(l.style.transform).toMatch(/translate\(/));
-});
-
 test('GlassStack_does_not_move_layers_on_touch_devices', () => {
   mockMedia({ reduceMotion: false, finePointer: false });
   const { container } = render(<GlassStack />);
@@ -91,13 +82,54 @@ test('GlassStack_does_not_move_layers_on_touch_devices', () => {
   container.querySelectorAll<HTMLElement>('.layer').forEach((l) => expect(l.style.transform).toBe(''));
 });
 
-test('avatar_visibly_follows_the_mouse_by_at_least_10px_each_way', () => {
+function stubFrames() {
+  const queue: FrameRequestCallback[] = [];
+  vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => queue.push(cb));
+  vi.stubGlobal('cancelAnimationFrame', () => {});
+  return () => queue.splice(0).forEach((cb) => cb(0));
+}
+
+function placeLayers(container: HTMLElement, cx: number, cy: number) {
+  container.querySelectorAll<HTMLElement>('.layer').forEach((layer) => {
+    layer.getBoundingClientRect = () =>
+      ({ left: cx - 50, top: cy - 50, width: 100, height: 100, right: cx + 50, bottom: cy + 50, x: cx - 50, y: cy - 50, toJSON: () => ({}) }) as DOMRect;
+  });
+}
+
+const offsetX = (el: HTMLElement) => Number(/translate\((-?[\d.]+)px/.exec(el.style.transform)![1]);
+
+test('layers_run_away_from_a_pointer_that_comes_close', () => {
   mockMedia({ reduceMotion: false, finePointer: true });
-  Object.defineProperty(window, 'innerWidth', { value: 1000, configurable: true });
-  Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
+  const flush = stubFrames();
   const { container } = render(<GlassStack avatarSrc="/a.webp" />);
-  fireEvent(document, new MouseEvent('pointermove', { clientX: 0, clientY: 400, bubbles: true }));
+  placeLayers(container, 300, 300);
+  fireEvent(document, new MouseEvent('pointermove', { clientX: 250, clientY: 300, bubbles: true }));
+  flush();
   const avatar = container.querySelector('.avatar') as HTMLElement;
-  const x = Number(/translate\((-?[\d.]+)px/.exec(avatar.style.transform)![1]);
-  expect(Math.abs(x)).toBeGreaterThanOrEqual(10);
+  expect(offsetX(avatar)).toBeGreaterThan(8);
+  vi.unstubAllGlobals();
+});
+
+test('layers_stay_still_when_the_pointer_is_far_away', () => {
+  mockMedia({ reduceMotion: false, finePointer: true });
+  const flush = stubFrames();
+  const { container } = render(<GlassStack avatarSrc="/a.webp" />);
+  placeLayers(container, 300, 300);
+  fireEvent(document, new MouseEvent('pointermove', { clientX: 1200, clientY: 700, bubbles: true }));
+  flush();
+  container.querySelectorAll<HTMLElement>('.layer').forEach((l) => expect(offsetX(l)).toBe(0));
+  vi.unstubAllGlobals();
+});
+
+test('layers_return_home_when_the_pointer_leaves_the_page', () => {
+  mockMedia({ reduceMotion: false, finePointer: true });
+  const flush = stubFrames();
+  const { container } = render(<GlassStack avatarSrc="/a.webp" />);
+  placeLayers(container, 300, 300);
+  fireEvent(document, new MouseEvent('pointermove', { clientX: 250, clientY: 300, bubbles: true }));
+  flush();
+  fireEvent(document.documentElement, new MouseEvent('pointerleave'));
+  flush();
+  container.querySelectorAll<HTMLElement>('.layer').forEach((l) => expect(offsetX(l)).toBe(0));
+  vi.unstubAllGlobals();
 });
