@@ -1,0 +1,16 @@
+:root {
+  --bg: #07060f;
+  --surface: #0e0b1d;
+  --surface2: #130f27;
+  --line: #2a2347;
+  --text: #efeaff;
+  --muted: #b8accf;
+  --dim: #8c80b8;
+  --violet: #8b5cf6;
+  --violet2: #a78bfa;
+  --magenta: #c026d3;
+  --pink: #e879f9;
+  --green: #4ade80;
+  --mx: 50vw;
+  --my: 30vh;
+}
