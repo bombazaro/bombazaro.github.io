@@ -5,6 +5,7 @@ import GlowTrail from './components/GlowTrail';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
+import Services from './components/Services';
 import SkipLink from './components/SkipLink';
 import { usePointerGlow } from './hooks/usePointerGlow';
 
@@ -20,6 +21,7 @@ export default function App() {
       <main id="conteudo">
         <Hero />
         <Projects />
+        <Services />
         <About />
         <Contact />
       </main>

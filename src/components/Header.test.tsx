@@ -77,3 +77,10 @@ test('mobile_menu_is_not_inside_the_header_so_backdrop_filter_cannot_trap_it', (
   expect(menu.closest('header')).toBeNull();
   expect(menu.tagName).toBe('NAV');
 });
+
+test('menu_has_servicos_between_projetos_and_sobre', () => {
+  render(<Header />);
+  const hrefs = Array.from(document.querySelectorAll('header nav a')).map((a) => a.getAttribute('href'));
+  expect(hrefs.indexOf('#servicos')).toBeGreaterThan(hrefs.indexOf('#projetos'));
+  expect(hrefs.indexOf('#servicos')).toBeLessThan(hrefs.indexOf('#sobre'));
+});

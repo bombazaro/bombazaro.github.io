@@ -3,6 +3,7 @@ import { links } from '../data/content';
 
 const sections = [
   { id: 'projetos', label: 'Projetos' },
+  { id: 'servicos', label: 'Serviços' },
   { id: 'sobre', label: 'Sobre' },
   { id: 'contato', label: 'Contato' },
 ];

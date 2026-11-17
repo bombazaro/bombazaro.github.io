@@ -96,3 +96,10 @@ test('every_card_has_an_image_frame_with_the_same_class', () => {
   const { container } = render(<Projects />);
   expect(container.querySelectorAll('.pcard .shot')).toHaveLength(3);
 });
+
+test('every_card_shows_the_back_end_line', () => {
+  render(<Projects />);
+  const cards = screen.getAllByRole('article');
+  cards.forEach((c) => expect(within(c).getByText('Back-end')).toBeInTheDocument());
+  expect(within(card(/Fluxus/)).getByText(/SQLite/, { selector: 'p.backend' })).toBeInTheDocument();
+});

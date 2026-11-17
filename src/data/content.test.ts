@@ -1,7 +1,7 @@
-import { contactLabels, heroChips, links, marqueeItems, projects, site, techGroups, timeline } from './content';
+import { contactLabels, heroChips, links, marqueeItems, projects, services, site, techGroups, timeline } from './content';
 import { ARROWS, DASHES } from '../test/dashes';
 
-const everything = { site, links, contactLabels, projects, timeline, techGroups, marqueeItems, heroChips };
+const everything = { site, links, contactLabels, projects, services, timeline, techGroups, marqueeItems, heroChips };
 
 test('projects_are_in_order_padaria_fluxus_livrum', () => {
   expect(projects.map((p) => p.id)).toEqual(['padaria', 'fluxus', 'livrum']);
@@ -85,4 +85,20 @@ test('hosting_is_listed_fluxus_netlify_livrum_vercel_and_supabase', () => {
   const stack = (id: string) => projects.find((p) => p.id === id)!.stack;
   expect(stack('fluxus')).toContain('Netlify');
   expect(stack('livrum')).toEqual(expect.arrayContaining(['Vercel', 'Supabase']));
+});
+
+test('every_project_explains_its_server_side', () => {
+  projects.forEach((p) => expect(p.backend.length).toBeGreaterThan(20));
+  expect(projects.find((p) => p.id === 'fluxus')!.backend).toMatch(/SQLite/);
+  expect(projects.find((p) => p.id === 'padaria')!.backend).toMatch(/Sanity/);
+  expect(projects.find((p) => p.id === 'livrum')!.backend).toMatch(/Supabase/);
+});
+
+test('services_are_three_with_title_and_text_and_no_prices', () => {
+  expect(services).toHaveLength(3);
+  services.forEach((s) => {
+    expect(s.title.length).toBeGreaterThan(3);
+    expect(s.text.length).toBeGreaterThan(30);
+  });
+  expect(JSON.stringify(services)).not.toMatch(/R\$|\d+\s*reais/i);
 });

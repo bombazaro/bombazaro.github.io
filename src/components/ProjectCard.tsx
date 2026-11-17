@@ -5,7 +5,7 @@ import Chip from './Chip';
 
 export default function ProjectCard({ project }: { project: Project }) {
   const [imageFailed, setImageFailed] = useState(false);
-  const { title, badge, summary, note, stack, image, actions } = project;
+  const { title, badge, summary, note, backend, stack, image, actions } = project;
 
   return (
     <article className="glow pcard">
@@ -30,6 +30,10 @@ export default function ProjectCard({ project }: { project: Project }) {
         <h3>{title}</h3>
         <p>{summary}</p>
         {note && <div className="note-sm">{note}</div>}
+        <p className="backend">
+          <span className="mono tag-be">Back-end</span>
+          {backend}
+        </p>
         <div className="chips">
           {stack.map((item) => (
             <Chip key={item}>{item}</Chip>
