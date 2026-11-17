@@ -90,3 +90,14 @@ test('GlassStack_does_not_move_layers_on_touch_devices', () => {
   fireEvent(document, new MouseEvent('pointermove', { clientX: 10, clientY: 10 }));
   container.querySelectorAll<HTMLElement>('.layer').forEach((l) => expect(l.style.transform).toBe(''));
 });
+
+test('avatar_visibly_follows_the_mouse_by_at_least_10px_each_way', () => {
+  mockMedia({ reduceMotion: false, finePointer: true });
+  Object.defineProperty(window, 'innerWidth', { value: 1000, configurable: true });
+  Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
+  const { container } = render(<GlassStack avatarSrc="/a.webp" />);
+  fireEvent(document, new MouseEvent('pointermove', { clientX: 0, clientY: 400, bubbles: true }));
+  const avatar = container.querySelector('.avatar') as HTMLElement;
+  const x = Number(/translate\((-?[\d.]+)px/.exec(avatar.style.transform)![1]);
+  expect(Math.abs(x)).toBeGreaterThanOrEqual(10);
+});

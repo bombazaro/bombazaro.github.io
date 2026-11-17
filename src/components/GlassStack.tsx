@@ -26,7 +26,7 @@ export default function GlassStack({ avatarSrc }: { avatarSrc?: string }) {
 
   return (
     <div className="stack" ref={stackRef}>
-      <div className="layer avatar" data-depth="10">
+      <div className="layer avatar" data-depth="30">
         {showAvatar ? (
           <img src={avatarSrc} alt="Desenho do Bernardo" width={190} height={190} onError={() => setAvatarFailed(true)} />
         ) : (
