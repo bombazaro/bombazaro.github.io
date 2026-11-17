@@ -1,4 +1,6 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
+import { projects } from '../data/content';
+import ProjectCard from './ProjectCard';
 import Projects from './Projects';
 
 const card = (name: RegExp | string) => screen.getByRole('heading', { level: 3, name }).closest('article') as HTMLElement;
@@ -55,8 +57,10 @@ test('broken_image_falls_back_to_title_block_and_keeps_text', () => {
 });
 
 test('project_without_image_uses_fallback_block_from_the_start', () => {
-  render(<Projects />);
-  expect(card(/Livrum/).querySelector('.shot-fallback')).not.toBeNull();
+  const noImage = { ...projects[2], image: undefined };
+  const { container } = render(<ProjectCard project={noImage} />);
+  expect(container.querySelector('.shot-fallback')).not.toBeNull();
+  expect(container.querySelector('img')).toBeNull();
 });
 
 test('images_have_dimensions_and_lazy_loading_to_avoid_layout_jump', () => {

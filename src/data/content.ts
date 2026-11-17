@@ -80,6 +80,7 @@ export const projects: Project[] = [
       'RPG gamificado que incentiva jovens a ler, com XP, badges e quizzes. Projeto do IFSC feito em grupo.',
     note: 'Versão inicial em React e Java, feita em grupo; depois reescrita em Python pelo colega. Participei de várias partes (83 commits no repositório atual).',
     stack: ['React', 'Java', 'Python'],
+    image: { src: '/projetos/livrum.webp', alt: 'Tela de entrada do Livrum, com o gato mascote e o texto "A sua próxima aventura literária começa aqui"' },
     actions: [
       { label: 'Ver site ↗', href: 'https://livrum-ifsc1.vercel.app', variant: 'main' },
       { label: 'Código', href: 'https://github.com/anthyer/livrum', variant: 'ghost' },

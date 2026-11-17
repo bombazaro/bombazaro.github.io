@@ -1,4 +1,5 @@
 import { contactLabels, heroChips, links, marqueeItems, projects, site, techGroups, timeline } from './content';
+import { DASHES } from '../test/dashes';
 
 const everything = { site, links, contactLabels, projects, timeline, techGroups, marqueeItems, heroChips };
 
@@ -47,7 +48,7 @@ test('contact_links_match_spec', () => {
 });
 
 test('no_em_or_en_dashes_anywhere', () => {
-  expect(JSON.stringify(everything)).not.toMatch(/[—–]/);
+  expect(JSON.stringify(everything)).not.toMatch(DASHES);
 });
 
 test('no_private_data', () => {

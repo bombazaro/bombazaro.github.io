@@ -3,6 +3,7 @@ import { axe } from 'vitest-axe';
 import * as matchers from 'vitest-axe/matchers';
 import App from './App';
 import { clearMedia, mockMedia } from './test/media';
+import { DASHES } from './test/dashes';
 
 expect.extend(matchers);
 
@@ -46,5 +47,5 @@ test('skip_link_is_the_first_focusable_element', () => {
 
 test('whole_page_has_no_dash_characters', () => {
   const { container } = render(<App />);
-  expect(container.textContent).not.toMatch(/[—–]/);
+  expect(container.textContent).not.toMatch(DASHES);
 });
