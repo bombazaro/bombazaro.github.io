@@ -159,3 +159,38 @@ h1 { font-size: clamp(38px, 6vw, 68px); line-height: 1.04; letter-spacing: -.03e
   .badge i, .caret { animation: none; }
   .stack .layer { transition: none; }
 }
+
+/* seções */
+section { padding: 96px 0; position: relative; }
+.eyebrow { font-size: 13px; color: var(--violet2); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 10px; }
+h2 { font-size: clamp(30px, 4.2vw, 46px); letter-spacing: -.025em; line-height: 1.1; margin-bottom: 12px; }
+.sub { color: var(--muted); max-width: 620px; margin-bottom: 44px; font-size: 17px; }
+
+/* projetos */
+.projects { display: grid; grid-template-columns: 1.35fr 1fr; gap: 20px; }
+.pcard { padding: 14px; display: flex; flex-direction: column; }
+.pcard .shot { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #0a0818; aspect-ratio: 16 / 10; position: relative; }
+.pcard .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .5s; }
+.pcard:hover .shot img { transform: scale(1.04); }
+.pcard .body { padding: 16px 6px 6px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.pcard h3 { font-size: 22px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pill { font-size: 11.5px; padding: 3px 10px; border-radius: 999px; background: rgba(139,92,246,.2); color: #d8ccff; border: 1px solid rgba(167,139,250,.4); font-weight: 600; }
+.pcard p { color: var(--muted); font-size: 15px; }
+.pcard .acts { margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px; padding-top: 6px; }
+.pcard .btn { padding: 10px 18px; font-size: 14px; }
+.big { grid-row: span 2; }
+.big .shot { aspect-ratio: auto; flex: 1; min-height: 300px; }
+.big .shot img { position: absolute; inset: 0; }
+.big .body { flex: 0 0 auto; }
+.pcard .shot-fallback {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #2a1458, #0d0a1f 60%, #4a1269); font-weight: 800; font-size: 26px; letter-spacing: .02em;
+}
+.note-sm { font-size: 13px; color: var(--dim); border-left: 2px solid var(--violet); padding-left: 10px; }
+
+@media (max-width: 860px) {
+  section { padding: 70px 0; }
+  .projects { grid-template-columns: 1fr; }
+  .big { grid-row: auto; }
+  .big .shot { aspect-ratio: 16 / 10; flex: none; min-height: 0; }
+}

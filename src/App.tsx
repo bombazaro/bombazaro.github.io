@@ -1,5 +1,6 @@
 import Header from './components/Header';
 import Hero from './components/Hero';
+import Projects from './components/Projects';
 import SkipLink from './components/SkipLink';
 import { usePointerGlow } from './hooks/usePointerGlow';
 
@@ -13,6 +14,7 @@ export default function App() {
       <Header />
       <main id="conteudo">
         <Hero />
+        <Projects />
       </main>
     </>
   );
