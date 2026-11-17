@@ -223,3 +223,12 @@ h2 { font-size: clamp(30px, 4.2vw, 46px); letter-spacing: -.025em; line-height: 
 .contact p { color: var(--muted); margin: 0 auto 28px; max-width: 520px; font-size: 17px; }
 .contact .cta { justify-content: center; margin-bottom: 0; }
 footer { padding: 36px 0 44px; color: var(--dim); font-size: 14px; text-align: center; }
+
+/* entrada suave ao rolar */
+.rv { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+.rv.in { opacity: 1; transform: none; }
+.projects > .rv { display: flex; }
+.projects > .rv > .pcard { flex: 1; width: 100%; }
+.about > .rv, .about > div { min-width: 0; }
+.trail { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } }

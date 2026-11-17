@@ -1,10 +1,12 @@
 import { contactLabels, links } from '../data/content';
 import Button from './Button';
+import Reveal from './Reveal';
 
 export default function Contact() {
   return (
     <section id="contato">
       <div className="wrap">
+        <Reveal>
         <div className="glow contact">
           <div className="eyebrow mono">Contato</div>
           <h2>
@@ -32,6 +34,7 @@ export default function Contact() {
             </Button>
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

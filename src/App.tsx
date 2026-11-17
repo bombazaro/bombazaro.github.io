@@ -1,6 +1,7 @@
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import GlowTrail from './components/GlowTrail';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
@@ -14,6 +15,7 @@ export default function App() {
       <SkipLink />
       <div className="ambient" aria-hidden="true" />
       <div id="spot" aria-hidden="true" />
+      <GlowTrail />
       <Header />
       <main id="conteudo">
         <Hero />
