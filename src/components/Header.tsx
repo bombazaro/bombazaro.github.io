@@ -46,6 +46,7 @@ export default function Header() {
   }, []);
 
   return (
+    <>
     <header className={scrolled ? 'scrolled' : ''}>
       <div className="wrap nav">
         <a className="logo" href="#topo">
@@ -73,16 +74,17 @@ export default function Header() {
           {open ? '✕' : '☰'}
         </button>
       </div>
-      <div id="menu-mobile" className="mobile-menu" hidden={!open}>
-        {sections.map((s) => (
-          <a key={s.id} href={`#${s.id}`} onClick={() => setOpen(false)}>
-            {s.label}
-          </a>
-        ))}
-        <a href={links.cv} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
-          Currículo
-        </a>
-      </div>
     </header>
+    <nav id="menu-mobile" className="mobile-menu" aria-label="Menu móvel" hidden={!open}>
+      {sections.map((s) => (
+        <a key={s.id} href={`#${s.id}`} onClick={() => setOpen(false)}>
+          {s.label}
+        </a>
+      ))}
+      <a href={links.cv} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
+        Currículo
+      </a>
+    </nav>
+    </>
   );
 }

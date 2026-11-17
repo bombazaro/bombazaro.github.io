@@ -70,3 +70,10 @@ test('skip_link_targets_main_content', () => {
   const link = screen.getByRole('link', { name: 'Pular para o conteúdo' });
   expect(link).toHaveAttribute('href', '#conteudo');
 });
+
+test('mobile_menu_is_not_inside_the_header_so_backdrop_filter_cannot_trap_it', () => {
+  render(<Header />);
+  const menu = document.getElementById('menu-mobile')!;
+  expect(menu.closest('header')).toBeNull();
+  expect(menu.tagName).toBe('NAV');
+});

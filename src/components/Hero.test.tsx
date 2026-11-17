@@ -21,9 +21,20 @@ test('Hero_primary_cta_goes_to_instagram_in_new_tab', () => {
   expect(cta).toHaveClass('btn-main');
 });
 
-test('Hero_secondary_cta_goes_to_github', () => {
+test('Hero_has_separate_curriculo_and_github_buttons', () => {
   render(<Hero />);
-  expect(screen.getByRole('link', { name: 'Currículo e GitHub' })).toHaveAttribute('href', 'https://github.com/bombazaro');
+  const cv = screen.getByRole('link', { name: 'Currículo' });
+  expect(cv.getAttribute('href')).toMatch(/\/curriculo-bernardo-bombazaro\.pdf$/);
+  expect(cv).toHaveAttribute('target', '_blank');
+  expect(screen.getByRole('link', { name: 'GitHub' })).toHaveAttribute('href', 'https://github.com/bombazaro');
+});
+
+test('topo_anchor_is_the_hero_wrapper_so_the_logo_link_shows_the_whole_hero', () => {
+  render(<Hero />);
+  const top = document.getElementById('topo')!;
+  const h1 = screen.getByRole('heading', { level: 1 });
+  expect(top).not.toBe(h1);
+  expect(top).toContainElement(h1);
 });
 
 test('Hero_badge_text_is_disponivel_para_projetos', () => {

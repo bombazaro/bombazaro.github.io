@@ -1,4 +1,4 @@
-import { contactLabels, heroChips, links, site } from '../data/content';
+import { heroChips, links, site } from '../data/content';
 import { useTypewriter } from '../hooks/useTypewriter';
 import Button from './Button';
 import Chip from './Chip';
@@ -8,7 +8,7 @@ import Reveal from './Reveal';
 export default function Hero() {
   const typed = useTypewriter(site.typed);
   return (
-    <div className="hero">
+    <div className="hero" id="topo">
       <div className="wrap grid">
         <div>
           <Reveal>
@@ -22,7 +22,7 @@ export default function Hero() {
           </div>
           </Reveal>
           <Reveal delay={80}>
-          <h1 id="topo">
+          <h1>
             Código limpo.{' '}
             <br />
             <span className="grad">Interfaces</span> que acolhem.
@@ -34,8 +34,11 @@ export default function Hero() {
             <Button href={links.instagram} variant="main" external>
               Quero um site para meu negócio →
             </Button>
+            <Button href={links.cv} variant="ghost" external>
+              Currículo
+            </Button>
             <Button href={links.github} variant="ghost" external>
-              Currículo e GitHub
+              GitHub
             </Button>
           </div>
           <div className="chips">

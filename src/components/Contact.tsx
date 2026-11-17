@@ -32,6 +32,9 @@ export default function Contact() {
             <Button href={links.github} variant="ghost" external>
               GitHub
             </Button>
+            <Button href={links.cv} variant="ghost" external>
+              Currículo
+            </Button>
           </div>
         </div>
         </Reveal>

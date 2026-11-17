@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import Contact from './Contact';
 import Footer from './Footer';
 
-test('contact_has_five_links_with_exact_hrefs', () => {
+test('contact_has_six_links_with_exact_hrefs', () => {
   render(<Contact />);
   const hrefs = screen.getAllByRole('link').map((a) => a.getAttribute('href'));
   expect(hrefs).toEqual([
@@ -11,6 +11,7 @@ test('contact_has_five_links_with_exact_hrefs', () => {
     'mailto:bombazarobernardo@gmail.com',
     'https://www.linkedin.com/in/bernardo-silva-bombazaro-855b65276',
     'https://github.com/bombazaro',
+    '/curriculo-bernardo-bombazaro.pdf',
   ]);
 });
 
