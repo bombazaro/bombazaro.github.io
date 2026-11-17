@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { projects } from './data/content';
 import { DASHES } from './test/dashes';
+import { PRIVATE } from './test/private';
 
 const html = readFileSync('index.html', 'utf8');
 const meta = (attr: string, name: string) => new RegExp(`<meta[^>]+${attr}="${name}"[^>]+content="([^"]+)"`).exec(html)?.[1];
@@ -51,5 +52,5 @@ test('cv_pdf_has_no_birth_date_or_neighborhood', (ctx) => {
     ctx.skip();
   }
   expect(text).toContain('Bernardo Silva Bombazaro');
-  expect(text).not.toMatch(/nascimento|ANO|BAIRRO|14\/12/i);
+  expect(text).not.toMatch(PRIVATE);
 });

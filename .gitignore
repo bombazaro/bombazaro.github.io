@@ -4,3 +4,6 @@ dist
 .playwright-mcp/
 docs/*.pdf
 img/
+
+# plano e rascunhos de trabalho (citam dados pessoais; ficam só na máquina)
+docs/superpowers/

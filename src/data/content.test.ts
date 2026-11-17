@@ -1,5 +1,6 @@
 import { contactLabels, heroChips, links, marqueeItems, projects, services, site, techGroups, timeline } from './content';
 import { ARROWS, DASHES } from '../test/dashes';
+import { PRIVATE } from '../test/private';
 
 const everything = { site, links, contactLabels, projects, services, timeline, techGroups, marqueeItems, heroChips };
 
@@ -52,7 +53,7 @@ test('no_em_or_en_dashes_anywhere', () => {
 });
 
 test('no_private_data', () => {
-  expect(JSON.stringify(everything)).not.toMatch(/ANO|BAIRRO|nascimento/i);
+  expect(JSON.stringify(everything)).not.toMatch(PRIVATE);
 });
 
 test('role_is_full_stack_not_front_end', () => {

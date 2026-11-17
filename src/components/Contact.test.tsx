@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import Contact from './Contact';
+import { PRIVATE } from '../test/private';
 import Footer from './Footer';
 
 test('contact_has_six_links_with_exact_hrefs', () => {
@@ -48,5 +49,5 @@ test('footer_shows_only_city_and_state', () => {
   render(<Footer />);
   const footer = screen.getByRole('contentinfo');
   expect(footer).toHaveTextContent('© 2026 Bernardo Silva Bombazaro · Palhoça/SC');
-  expect(footer).not.toHaveTextContent(/BAIRRO/);
+  expect(footer).not.toHaveTextContent(PRIVATE);
 });
