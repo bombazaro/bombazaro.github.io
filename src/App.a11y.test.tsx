@@ -3,7 +3,7 @@ import { axe } from 'vitest-axe';
 import * as matchers from 'vitest-axe/matchers';
 import App from './App';
 import { clearMedia, mockMedia } from './test/media';
-import { DASHES } from './test/dashes';
+import { ARROWS, DASHES } from './test/dashes';
 
 expect.extend(matchers);
 
@@ -48,4 +48,14 @@ test('skip_link_is_the_first_focusable_element', () => {
 test('whole_page_has_no_dash_characters', () => {
   const { container } = render(<App />);
   expect(container.textContent).not.toMatch(DASHES);
+});
+
+test('whole_page_has_no_arrow_characters', () => {
+  const { container } = render(<App />);
+  expect(container.textContent).not.toMatch(ARROWS);
+});
+
+test('page_never_shows_the_phone_number_or_instagram_handle_as_text', () => {
+  const { container } = render(<App />);
+  expect(container.textContent).not.toMatch(/98455|984555696|\(48\)|bombazaro\.sites|@bombazaro/i);
 });

@@ -31,7 +31,7 @@ test('public_assets_exist', () => {
     'meu-desenho-sem-fundo.webp',
     'projetos/padaria.webp',
     'projetos/fluxus-inicio.webp',
-    'projetos/fluxus-contas.webp',
+    'projetos/fluxus.webp',
     'projetos/livrum.webp',
   ].forEach((file) => expect(existsSync(`public/${file}`), file).toBe(true));
 });

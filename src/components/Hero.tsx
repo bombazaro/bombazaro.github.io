@@ -32,7 +32,7 @@ export default function Hero() {
           <Reveal delay={160}>
           <div className="cta">
             <Button href={links.instagram} variant="main" external>
-              Quero um site para meu negócio →
+              Quero um site para meu negócio
             </Button>
             <Button href={links.cv} variant="ghost" external>
               Currículo

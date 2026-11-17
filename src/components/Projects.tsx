@@ -15,7 +15,7 @@ export default function Projects() {
         </Reveal>
         <div className="projects">
           {projects.map((project, i) => (
-            <Reveal key={project.id} className={project.featured ? 'big' : ''} delay={i * 90}>
+            <Reveal key={project.id} delay={i * 90}>
               <ProjectCard project={project} />
             </Reveal>
           ))}

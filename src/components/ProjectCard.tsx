@@ -5,17 +5,17 @@ import Chip from './Chip';
 
 export default function ProjectCard({ project }: { project: Project }) {
   const [imageFailed, setImageFailed] = useState(false);
-  const { title, badge, summary, note, stack, image, actions, featured } = project;
+  const { title, badge, summary, note, stack, image, actions } = project;
 
   return (
-    <article className={`glow pcard${featured ? ' big' : ''}`}>
+    <article className="glow pcard">
       <div className="shot" style={image ? ({ '--shot': `url(${image.src})` } as CSSProperties) : undefined}>
         {image && !imageFailed ? (
           <img
             src={image.src}
             alt={image.alt}
             width={1200}
-            height={750}
+            height={675}
             loading="lazy"
             onError={() => setImageFailed(true)}
           />
@@ -24,12 +24,10 @@ export default function ProjectCard({ project }: { project: Project }) {
             {title}
           </div>
         )}
+        {badge && <span className="pill shot-badge">{badge}</span>}
       </div>
       <div className="body">
-        <h3>
-          {title}
-          {badge && <span className="pill">{badge}</span>}
-        </h3>
+        <h3>{title}</h3>
         <p>{summary}</p>
         {note && <div className="note-sm">{note}</div>}
         <div className="chips">

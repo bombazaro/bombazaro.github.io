@@ -1,5 +1,5 @@
 import { contactLabels, heroChips, links, marqueeItems, projects, site, techGroups, timeline } from './content';
-import { DASHES } from '../test/dashes';
+import { ARROWS, DASHES } from '../test/dashes';
 
 const everything = { site, links, contactLabels, projects, timeline, techGroups, marqueeItems, heroChips };
 
@@ -71,4 +71,12 @@ test('timeline_has_three_entries_in_order_and_skips_apae', () => {
 
 test('tech_groups_are_the_four_expected', () => {
   expect(techGroups.map((g) => g.title)).toEqual(['Programação', 'Banco de dados', 'Ferramentas', 'Pessoal']);
+});
+
+test('no_arrow_characters_in_any_label_or_text', () => {
+  expect(JSON.stringify(everything)).not.toMatch(ARROWS);
+});
+
+test('contact_labels_are_plain_names_without_number_or_handle', () => {
+  expect(contactLabels).toEqual({ whatsapp: 'WhatsApp', instagram: 'Instagram' });
 });

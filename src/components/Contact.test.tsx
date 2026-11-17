@@ -15,15 +15,15 @@ test('contact_has_six_links_with_exact_hrefs', () => {
   ]);
 });
 
-test('whatsapp_is_primary_button_and_shows_formatted_number', () => {
+test('whatsapp_is_primary_button_and_hides_the_number_in_the_label', () => {
   render(<Contact />);
-  const wa = screen.getByRole('link', { name: 'WhatsApp (48) 98455-5696' });
+  const wa = screen.getByRole('link', { name: 'WhatsApp' });
   expect(wa).toHaveClass('btn-main');
 });
 
-test('instagram_label_shows_the_handle', () => {
+test('instagram_label_is_just_the_name', () => {
   render(<Contact />);
-  expect(screen.getByRole('link', { name: 'Instagram @bombazaro.sites' })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: 'Instagram' })).toBeInTheDocument();
 });
 
 test('external_contact_links_open_in_new_tab', () => {

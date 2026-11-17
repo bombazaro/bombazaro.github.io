@@ -38,8 +38,8 @@ export const links = {
 };
 
 export const contactLabels = {
-  whatsapp: 'WhatsApp (48) 98455-5696',
-  instagram: 'Instagram @bombazaro.sites',
+  whatsapp: 'WhatsApp',
+  instagram: 'Instagram',
 };
 
 export const heroChips = ['React', 'TypeScript', 'Java', 'Spring Boot', 'SQL'];
@@ -55,7 +55,7 @@ export const projects: Project[] = [
     stack: ['React', 'TypeScript', 'Sanity', 'Netlify'],
     image: { src: '/projetos/padaria.webp', alt: "Página inicial do site da Padaria Bombazaro's" },
     actions: [
-      { label: 'Ver site ↗', href: 'https://padariabombazaros.netlify.app', variant: 'main' },
+      { label: 'Ver site', href: 'https://padariabombazaros.netlify.app', variant: 'main' },
       { label: 'Código', href: 'https://github.com/bombazaro/padaria-bombazaros', variant: 'ghost' },
     ],
   },
@@ -65,9 +65,9 @@ export const projects: Project[] = [
     summary:
       'App de contas a pagar que calcula sozinho o que falta pagar e quanto sobra do mês. Funciona 100% offline.',
     stack: ['Expo', 'TypeScript', 'SQLite'],
-    image: { src: '/projetos/fluxus-contas.webp', alt: 'Tela de contas do app Fluxus no modo escuro' },
+    image: { src: '/projetos/fluxus.webp', alt: 'Telas Início e Contas do app Fluxus no modo escuro' },
     actions: [
-      { label: 'Abrir na web ↗', href: 'https://fluxus-financas.netlify.app', variant: 'main' },
+      { label: 'Abrir na web', href: 'https://fluxus-financas.netlify.app', variant: 'main' },
       { label: 'Baixar APK', href: 'https://github.com/bombazaro/fluxus/releases/latest', variant: 'ghost' },
       { label: 'Código', href: 'https://github.com/bombazaro/fluxus', variant: 'ghost' },
     ],
@@ -82,7 +82,7 @@ export const projects: Project[] = [
     stack: ['React', 'Java', 'Python'],
     image: { src: '/projetos/livrum.webp', alt: 'Tela de entrada do Livrum, com o gato mascote e o texto "A sua próxima aventura literária começa aqui"' },
     actions: [
-      { label: 'Ver site ↗', href: 'https://livrum-ifsc1.vercel.app', variant: 'main' },
+      { label: 'Ver site', href: 'https://livrum-ifsc1.vercel.app', variant: 'main' },
       { label: 'Código', href: 'https://github.com/anthyer/livrum', variant: 'ghost' },
     ],
   },

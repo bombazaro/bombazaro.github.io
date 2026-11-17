@@ -14,18 +14,18 @@ test('renders_three_project_cards_in_order', () => {
   expect(screen.getAllByRole('article')).toHaveLength(3);
 });
 
-test('padaria_card_is_featured_and_has_ver_site_and_codigo', () => {
+test('padaria_card_has_destaque_badge_ver_site_and_codigo', () => {
   render(<Projects />);
   const padaria = card(/Padaria/);
-  expect(padaria).toHaveClass('big');
-  expect(within(padaria).getByRole('link', { name: /Ver site/ })).toHaveAttribute('href', 'https://padariabombazaros.netlify.app');
+  expect(within(padaria).getByText('em destaque')).toBeInTheDocument();
+  expect(within(padaria).getByRole('link', { name: 'Ver site' })).toHaveAttribute('href', 'https://padariabombazaros.netlify.app');
   expect(within(padaria).getByRole('link', { name: 'Código' })).toHaveAttribute('href', 'https://github.com/bombazaro/padaria-bombazaros');
 });
 
 test('fluxus_card_has_three_actions_web_apk_code', () => {
   render(<Projects />);
   const links = within(card('Fluxus')).getAllByRole('link');
-  expect(links.map((l) => l.textContent)).toEqual(['Abrir na web ↗', 'Baixar APK', 'Código']);
+  expect(links.map((l) => l.textContent)).toEqual(['Abrir na web', 'Baixar APK', 'Código']);
 });
 
 test('livrum_card_shows_em_equipe_badge_and_honest_note', () => {
@@ -83,4 +83,16 @@ test('shot_exposes_its_image_as_css_variable_for_the_blurred_backdrop', () => {
   const shot = card(/Padaria/).querySelector('.shot') as HTMLElement;
   expect(shot.getAttribute('style')).toContain('--shot');
   expect(shot.getAttribute('style')).toContain('/projetos/padaria.webp');
+});
+
+test('three_equal_cards_side_by_side_no_featured_layout', () => {
+  const { container } = render(<Projects />);
+  expect(container.querySelector('.big')).toBeNull();
+  const grid = container.querySelector('.projects') as HTMLElement;
+  expect(grid.querySelectorAll('article.pcard')).toHaveLength(3);
+});
+
+test('every_card_has_an_image_frame_with_the_same_class', () => {
+  const { container } = render(<Projects />);
+  expect(container.querySelectorAll('.pcard .shot')).toHaveLength(3);
 });
