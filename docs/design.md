@@ -49,7 +49,9 @@ define a identidade visual; todos aparecem só como cards.
 
 ## Estrutura da página, de cima para baixo
 1. Menu + selo + título + frase + dois botões: "Quero um site para meu negócio"
-   (Instagram/WhatsApp) e "Currículo e GitHub"; cartões de vidro ao lado.
+   (Instagram) e dois botões secundários, "Currículo" (PDF) e "GitHub"; cartões de vidro ao lado.
+   (Mudança feita na revisão final: antes era um só botão "Currículo e GitHub" que levava só ao GitHub.)
+   O Contato também ganhou o botão "Currículo".
 2. **Projetos**, cada card com captura de tela, uma frase, tecnologias, botão principal e botão "Código":
    - **Padaria Bombazaro's** (destaque): [Ver site](https://padariabombazaros.netlify.app) · código no GitHub.
    - **Fluxus** (app Android + web): [Abrir na web](https://fluxus-financas.netlify.app) · Baixar APK · código.
