@@ -152,7 +152,7 @@ h1 { font-size: clamp(38px, 6vw, 68px); line-height: 1.04; letter-spacing: -.03e
   .hero .grid { grid-template-columns: 1fr; }
   .stack { height: 350px; }
   .avatar { width: 190px; height: 190px; margin-left: -95px; top: 0; }
-  .codecard { width: 172px; top: 172px; padding: 10px; font-size: 10px; line-height: 1.6; }
+  .codecard { width: 172px; top: 150px; padding: 10px; font-size: 10px; line-height: 1.6; }
   .fluxcard { width: 112px; padding: 6px; bottom: 0; }
   .fluxcard img { height: 70px; }
   .fluxcard b { font-size: 12px; margin-top: 5px; }
