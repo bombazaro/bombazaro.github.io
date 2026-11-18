@@ -18,7 +18,7 @@ export default function App() {
       <div id="spot" aria-hidden="true" />
       <GlowTrail />
       <Header />
-      <main id="conteudo">
+      <main id="conteudo" tabIndex={-1}>
         <Hero />
         <Projects />
         <Services />

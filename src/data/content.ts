@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset';
 import { whatsappUrl } from '../lib/links';
 
 export type Action = { label: string; href: string; variant: 'main' | 'ghost' };
@@ -36,7 +37,7 @@ export const links = {
   email: 'mailto:bombazarobernardo@gmail.com',
   linkedin: 'https://www.linkedin.com/in/bernardo-silva-bombazaro-855b65276',
   github: 'https://github.com/bombazaro',
-  cv: '/curriculo-bernardo-bombazaro.pdf',
+  cv: asset('/curriculo-bernardo-bombazaro.pdf'),
 };
 
 export const contactLabels = {
@@ -56,7 +57,7 @@ export const projects: Project[] = [
       'Site de uma padaria real, com painel em português para os donos atualizarem produtos, horários e avisos sozinhos. "Aberto agora" calculado no fuso de Brasília, formulário de currículo, acessibilidade e SEO local.',
     backend: 'Conteúdo e painel de edição no Sanity, com o site hospedado no Netlify.',
     stack: ['React', 'TypeScript', 'Sanity', 'Netlify'],
-    image: { src: '/projetos/padaria.webp', alt: "Página inicial do site da Padaria Bombazaro's" },
+    image: { src: asset('/projetos/padaria.webp'), alt: "Página inicial do site da Padaria Bombazaro's" },
     actions: [
       { label: 'Ver site', href: 'https://padariabombazaros.netlify.app', variant: 'main' },
       { label: 'Código', href: 'https://github.com/bombazaro/padaria-bombazaros', variant: 'ghost' },
@@ -69,7 +70,7 @@ export const projects: Project[] = [
       'App de contas a pagar que calcula sozinho o que falta pagar e quanto sobra do mês. Funciona 100% offline.',
     backend: 'Os dados ficam em um banco SQLite dentro do próprio celular, por isso tudo funciona sem internet.',
     stack: ['Expo', 'TypeScript', 'SQLite', 'Netlify'],
-    image: { src: '/projetos/fluxus.webp', alt: 'Telas Início e Contas do app Fluxus no modo escuro' },
+    image: { src: asset('/projetos/fluxus.webp'), alt: 'Telas Início e Contas do app Fluxus no modo escuro' },
     actions: [
       { label: 'Abrir na web', href: 'https://fluxus-financas.netlify.app', variant: 'main' },
       { label: 'Baixar APK', href: 'https://github.com/bombazaro/fluxus/releases/latest', variant: 'ghost' },
@@ -85,7 +86,7 @@ export const projects: Project[] = [
     note: 'Versão inicial em React e Java, feita em grupo; depois reescrita em Python pelo colega. Participei de várias partes (83 commits no repositório atual).',
     backend: 'Contas e progresso dos leitores guardados no Supabase, com o site hospedado na Vercel.',
     stack: ['React', 'Java', 'Python', 'Supabase', 'Vercel'],
-    image: { src: '/projetos/livrum.webp', alt: 'Tela inicial do Livrum depois do login, com nível, XP, fases concluídas e o gato mascote lendo sobre uma pilha de livros' },
+    image: { src: asset('/projetos/livrum.webp'), alt: 'Tela inicial do Livrum depois do login, com nível, XP, fases concluídas e o gato mascote lendo sobre uma pilha de livros' },
     actions: [
       { label: 'Ver site', href: 'https://livrum-ifsc1.vercel.app', variant: 'main' },
     ],

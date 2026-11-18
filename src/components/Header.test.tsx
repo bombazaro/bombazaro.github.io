@@ -84,3 +84,66 @@ test('menu_has_servicos_between_projetos_and_sobre', () => {
   expect(hrefs.indexOf('#servicos')).toBeGreaterThan(hrefs.indexOf('#projetos'));
   expect(hrefs.indexOf('#servicos')).toBeLessThan(hrefs.indexOf('#sobre'));
 });
+
+function mockObserver() {
+  const instances: { cb: IntersectionObserverCallback }[] = [];
+  vi.stubGlobal(
+    'IntersectionObserver',
+    class {
+      constructor(cb: IntersectionObserverCallback) {
+        instances.push({ cb });
+      }
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    },
+  );
+  return instances;
+}
+const entry = (id: string, isIntersecting: boolean) =>
+  ({ target: document.getElementById(id)!, isIntersecting }) as unknown as IntersectionObserverEntry;
+
+test('active_link_clears_when_no_section_is_in_view_again', () => {
+  const ids = ['projetos', 'servicos', 'sobre', 'contato'];
+  ids.forEach((id) => document.body.insertAdjacentHTML('beforeend', `<section id="${id}"></section>`));
+  const io = mockObserver();
+  render(<Header />);
+  const sobre = () => screen.getAllByRole('link', { name: 'Sobre' })[0];
+  act(() => io[0].cb([entry('sobre', true)], {} as IntersectionObserver));
+  expect(sobre()).toHaveAttribute('aria-current', 'true');
+  act(() => io[0].cb([entry('sobre', false)], {} as IntersectionObserver));
+  expect(sobre()).not.toHaveAttribute('aria-current');
+  ids.forEach((id) => document.getElementById(id)?.remove());
+  vi.unstubAllGlobals();
+});
+
+test('open_menu_moves_focus_in_traps_tab_and_blocks_the_page_behind', async () => {
+  document.body.insertAdjacentHTML('beforeend', '<main id="conteudo"></main><footer id="rodape"></footer>');
+  render(<Header />);
+  await userEvent.click(burger());
+  expect(document.querySelector('main')).toHaveAttribute('inert');
+  expect(document.querySelector('footer')).toHaveAttribute('inert');
+  const links = Array.from(document.querySelectorAll<HTMLElement>('#menu-mobile a'));
+  expect(links[0]).toHaveFocus();
+  links[links.length - 1].focus();
+  await userEvent.tab();
+  expect(burger()).toHaveFocus();
+  await userEvent.tab({ shift: true });
+  expect(links[links.length - 1]).toHaveFocus();
+  await userEvent.click(burger());
+  expect(document.querySelector('main')).not.toHaveAttribute('inert');
+  expect(document.querySelector('footer')).not.toHaveAttribute('inert');
+  document.querySelector('main')?.remove();
+  document.querySelector('footer')?.remove();
+});
+
+test('menu_closes_by_itself_when_the_window_becomes_wide', async () => {
+  render(<Header />);
+  await userEvent.click(burger());
+  expect(burger()).toHaveAttribute('aria-expanded', 'true');
+  act(() => {
+    Object.defineProperty(window, 'innerWidth', { value: 1280, configurable: true });
+    fireEvent(window, new Event('resize'));
+  });
+  expect(burger()).toHaveAttribute('aria-expanded', 'false');
+});

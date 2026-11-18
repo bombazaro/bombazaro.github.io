@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { asset } from '../lib/asset';
 import { hasFinePointer, prefersReducedMotion } from '../lib/motion';
 import { repelOffset } from '../lib/repel';
 
@@ -80,7 +81,7 @@ export default function GlassStack({ avatarSrc }: { avatarSrc?: string }) {
         {'};'}
       </div>
       <div className="layer glass fluxcard" data-depth="60" data-kind="fluxcard">
-        <img src="/projetos/fluxus-inicio.webp" alt="Tela inicial do app Fluxus" width={195} height={150} loading="lazy" />
+        <img src={asset('/projetos/fluxus-inicio.webp')} alt="Tela inicial do app Fluxus" width={195} height={150} loading="lazy" />
         <b>Fluxus</b>
         <small>app Android + web</small>
       </div>

@@ -101,3 +101,47 @@ test('font_stacks_are_short_and_do_not_start_with_fonts_the_site_never_loads', (
     expect(stack.split(',').length).toBeLessThanOrEqual(3);
   });
 });
+
+function reducedMotionCss(): string {
+  const css = readFileSync('src/styles/global.css', 'utf8');
+  const marker = '@media (prefers-reduced-motion: reduce)';
+  let out = '';
+  let from = 0;
+  for (let at = css.indexOf(marker, from); at !== -1; at = css.indexOf(marker, from)) {
+    let depth = 0;
+    let end = css.indexOf('{', at);
+    for (let i = end; i < css.length; i++) {
+      if (css[i] === '{') depth++;
+      if (css[i] === '}' && --depth === 0) {
+        end = i;
+        break;
+      }
+    }
+    out += css.slice(at, end + 1) + '\n';
+    from = end + 1;
+  }
+  return out;
+}
+
+test('reduced_motion_turns_off_card_zoom_skip_link_and_header_transitions', () => {
+  const reduced = reducedMotionCss();
+  expect(reduced).toMatch(/\.pcard:hover \.shot img\s*\{\s*transform:\s*none/);
+  expect(reduced).toMatch(/\.skip-link[^{]*\{[^}]*transition:\s*none/);
+  expect(reduced).toMatch(/header[^{]*\{[^}]*transition:\s*none/);
+});
+
+test('index_has_a_noscript_message_with_contact_links_and_no_visible_phone', () => {
+  const match = /<noscript>([\s\S]*?)<\/noscript>/.exec(html);
+  expect(match).not.toBeNull();
+  const inner = match![1];
+  expect(inner).toMatch(/JavaScript/);
+  expect(inner).toContain('https://wa.me/5548984555696');
+  expect(inner).toContain('https://instagram.com/bombazaro.sites');
+  expect(inner.replace(/<[^>]+>/g, '')).not.toMatch(/\d{4,}/);
+  expect(inner).not.toMatch(DASHES);
+});
+
+test('deploy_workflow_never_cancels_a_running_pages_deploy', () => {
+  const workflow = readFileSync('.github/workflows/deploy.yml', 'utf8');
+  expect(workflow).toMatch(/cancel-in-progress:\s*false/);
+});

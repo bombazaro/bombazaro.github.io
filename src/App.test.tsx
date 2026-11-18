@@ -11,3 +11,8 @@ test('page_order_is_hero_projetos_servicos_sobre_contato', () => {
   const ids = Array.from(container.querySelectorAll('main > section')).map((s) => s.id);
   expect(ids).toEqual(['projetos', 'servicos', 'sobre', 'contato']);
 });
+
+test('main_can_receive_focus_from_the_skip_link_in_older_browsers', () => {
+  const { container } = render(<App />);
+  expect(container.querySelector('main#conteudo')).toHaveAttribute('tabindex', '-1');
+});
