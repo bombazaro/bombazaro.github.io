@@ -85,3 +85,9 @@ test('sitemap_and_robots_have_no_dashes_or_private_data', () => {
 test('index_declares_it_may_be_indexed', () => {
   expect(html).not.toMatch(/name="robots"[^>]+noindex/i);
 });
+
+test('google_search_console_verification_file_is_published_unchanged', () => {
+  const file = 'public/google6557abcc9f7d453a.html';
+  expect(existsSync(file)).toBe(true);
+  expect(readFileSync(file, 'utf8').trim()).toBe('google-site-verification: google6557abcc9f7d453a.html');
+});
