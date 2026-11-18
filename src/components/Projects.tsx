@@ -9,7 +9,7 @@ export default function Projects() {
         <Reveal>
           <div className="eyebrow mono">Projetos</div>
           <h2>
-            Coisas que eu <span className="grad">construí</span> e estão no ar.
+            Sites e apps que eu <span className="grad">construí</span> e já estão no ar.
           </h2>
           <p className="sub">Dois projetos meus e um feito em equipe. Cada um tem o site para usar e o código para ler.</p>
         </Reveal>

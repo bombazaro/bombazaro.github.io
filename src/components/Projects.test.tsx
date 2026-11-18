@@ -75,7 +75,7 @@ test('images_have_dimensions_and_lazy_loading_to_avoid_layout_jump', () => {
 test('section_has_id_projetos_and_h2', () => {
   const { container } = render(<Projects />);
   expect(container.querySelector('section#projetos')).not.toBeNull();
-  expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Coisas que eu construí e estão no ar.');
+  expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Sites e apps que eu construí e já estão no ar.');
 });
 
 test('shot_exposes_its_image_as_css_variable_for_the_blurred_backdrop', () => {
