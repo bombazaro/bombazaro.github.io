@@ -91,3 +91,13 @@ test('google_search_console_verification_file_is_published_unchanged', () => {
   expect(existsSync(file)).toBe(true);
   expect(readFileSync(file, 'utf8').trim()).toBe('google-site-verification: google6557abcc9f7d453a.html');
 });
+
+test('font_stacks_are_short_and_do_not_start_with_fonts_the_site_never_loads', () => {
+  const css = readFileSync('src/styles/global.css', 'utf8');
+  const stacks = Array.from(css.matchAll(/font-family:\s*([^;]+);/g)).map((m) => m[1].trim());
+  expect(stacks.length).toBeGreaterThan(0);
+  stacks.forEach((stack) => {
+    expect(stack).not.toMatch(/^Inter\b/);
+    expect(stack.split(',').length).toBeLessThanOrEqual(3);
+  });
+});

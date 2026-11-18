@@ -78,13 +78,6 @@ test('section_has_id_projetos_and_h2', () => {
   expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Sites e apps que eu construí e já estão no ar.');
 });
 
-test('shot_exposes_its_image_as_css_variable_for_the_blurred_backdrop', () => {
-  render(<Projects />);
-  const shot = card(/Padaria/).querySelector('.shot') as HTMLElement;
-  expect(shot.getAttribute('style')).toContain('--shot');
-  expect(shot.getAttribute('style')).toContain('/projetos/padaria.webp');
-});
-
 test('three_equal_cards_side_by_side_no_featured_layout', () => {
   const { container } = render(<Projects />);
   expect(container.querySelector('.big')).toBeNull();
@@ -102,4 +95,12 @@ test('every_card_shows_the_back_end_line', () => {
   const cards = screen.getAllByRole('article');
   cards.forEach((c) => expect(within(c).getByText('Back-end')).toBeInTheDocument());
   expect(within(card(/Fluxus/)).getByText(/SQLite/, { selector: 'p.backend' })).toBeInTheDocument();
+});
+
+test('cards_load_each_image_once_not_again_as_a_css_background', () => {
+  const { container } = render(<Projects />);
+  container.querySelectorAll<HTMLElement>('.pcard .shot').forEach((shot) => {
+    expect(shot.getAttribute('style') ?? '').not.toContain('--shot');
+  });
+  expect(container.querySelectorAll('.pcard img[loading="lazy"]')).toHaveLength(3);
 });

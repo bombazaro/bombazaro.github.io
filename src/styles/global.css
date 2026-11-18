@@ -3,12 +3,12 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: system-ui, sans-serif;
   line-height: 1.55;
   overflow-x: hidden;
 }
 a { color: inherit; text-decoration: none; }
-.mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+.mono { font-family: ui-monospace, Consolas, monospace; }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 :focus-visible { outline: 2px solid var(--violet2); outline-offset: 3px; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -233,10 +233,6 @@ footer { padding: 36px 0 44px; color: var(--dim); font-size: 14px; text-align: c
 @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } }
 
 
-/* imagem de cada projeto: inteira, centralizada, sobre uma cópia desfocada dela mesma */
-.pcard .shot::before {
-  content: ""; position: absolute; inset: -20px; background: var(--shot) center / cover; filter: blur(22px) saturate(1.2); opacity: .55;
-}
 
 /* selo sobre a imagem, igual em todos os cards */
 .shot-badge { position: absolute; top: 10px; left: 10px; z-index: 2; background: rgba(13,10,31,.88); backdrop-filter: blur(6px); }
