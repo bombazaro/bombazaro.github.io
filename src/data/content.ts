@@ -17,6 +17,7 @@ export type Project = {
 };
 
 export type Service = { title: string; text: string };
+export type SiteModel = { id: string; title: string; href: string; image: { src: string; alt: string } };
 export type TimelineItem = { when: string; title: string; place: string };
 export type TechGroup = { title: string; items: string[] };
 
@@ -106,6 +107,20 @@ export const services: Service[] = [
     title: 'Ajustes e melhorias',
     text: 'Já tem um site? Eu deixo mais rápido, bonito no celular e mais fácil de achar na busca.',
   },
+];
+
+const modelImage = (id: string, title: string) => ({
+  src: asset(`/modelos/${id}.webp`),
+  alt: `Página inicial do modelo de site para ${title.toLowerCase()}`,
+});
+
+export const siteModels: SiteModel[] = [
+  { id: 'barbearia', title: 'Barbearia', href: 'https://bombazaro-barbearia.pages.dev/', image: modelImage('barbearia', 'Barbearia') },
+  { id: 'salao', title: 'Salão de beleza', href: 'https://bombazaro-salao.pages.dev/', image: modelImage('salao', 'Salão de beleza') },
+  { id: 'padaria', title: 'Padaria', href: 'https://bombazaro-padaria.pages.dev/', image: modelImage('padaria', 'Padaria') },
+  { id: 'petshop', title: 'Pet shop', href: 'https://bombazaro-petshop.pages.dev/', image: modelImage('petshop', 'Pet shop') },
+  { id: 'oficina', title: 'Oficina', href: 'https://bombazaro-oficina.pages.dev/', image: modelImage('oficina', 'Oficina mecânica') },
+  { id: 'restaurante', title: 'Restaurante', href: 'https://bombazaro-restaurante.pages.dev/', image: modelImage('restaurante', 'Restaurante') },
 ];
 
 export const quoteMessage = 'Olá, Bernardo! Vi seu portfólio e quero pedir um orçamento de site.';

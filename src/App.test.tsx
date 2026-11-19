@@ -6,10 +6,10 @@ test('renders_main_heading', () => {
   expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/Interfaces/);
 });
 
-test('page_order_is_hero_projetos_servicos_sobre_contato', () => {
+test('page_order_is_hero_projetos_servicos_modelos_sobre_contato', () => {
   const { container } = render(<App />);
   const ids = Array.from(container.querySelectorAll('main > section')).map((s) => s.id);
-  expect(ids).toEqual(['projetos', 'servicos', 'sobre', 'contato']);
+  expect(ids).toEqual(['projetos', 'servicos', 'modelos', 'sobre', 'contato']);
 });
 
 test('main_can_receive_focus_from_the_skip_link_in_older_browsers', () => {

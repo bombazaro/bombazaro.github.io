@@ -1,8 +1,8 @@
-import { contactLabels, heroChips, links, marqueeItems, projects, services, site, techGroups, timeline } from './content';
+import { contactLabels, heroChips, links, marqueeItems, projects, services, site, siteModels, techGroups, timeline } from './content';
 import { ARROWS, DASHES } from '../test/dashes';
 import { PRIVATE } from '../test/private';
 
-const everything = { site, links, contactLabels, projects, services, timeline, techGroups, marqueeItems, heroChips };
+const everything = { site, links, contactLabels, projects, services, siteModels, timeline, techGroups, marqueeItems, heroChips };
 
 test('projects_are_in_order_padaria_fluxus_livrum', () => {
   expect(projects.map((p) => p.id)).toEqual(['padaria', 'fluxus', 'livrum']);
@@ -108,4 +108,10 @@ test('services_are_three_with_title_and_text_and_no_prices', () => {
 test('no_action_links_to_a_private_repository', () => {
   const hrefsAll = projects.flatMap((p) => p.actions.map((a) => a.href));
   expect(hrefsAll.join(' ')).not.toContain('anthyer/livrum');
+});
+
+test('site_models_are_six_published_demos_without_prices', () => {
+  expect(siteModels.map((m) => m.id)).toEqual(['barbearia', 'salao', 'padaria', 'petshop', 'oficina', 'restaurante']);
+  siteModels.forEach((m) => expect(m.href).toBe(`https://bombazaro-${m.id}.pages.dev/`));
+  expect(JSON.stringify(siteModels)).not.toMatch(/R\$|\d+\s*reais/i);
 });

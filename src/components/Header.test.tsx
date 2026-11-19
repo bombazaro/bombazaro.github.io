@@ -85,6 +85,13 @@ test('menu_has_servicos_between_projetos_and_sobre', () => {
   expect(hrefs.indexOf('#servicos')).toBeLessThan(hrefs.indexOf('#sobre'));
 });
 
+test('menu_has_modelos_between_servicos_and_sobre', () => {
+  render(<Header />);
+  const hrefs = Array.from(document.querySelectorAll('header nav a')).map((a) => a.getAttribute('href'));
+  expect(hrefs.indexOf('#modelos')).toBeGreaterThan(hrefs.indexOf('#servicos'));
+  expect(hrefs.indexOf('#modelos')).toBeLessThan(hrefs.indexOf('#sobre'));
+});
+
 function mockObserver() {
   const instances: { cb: IntersectionObserverCallback }[] = [];
   vi.stubGlobal(

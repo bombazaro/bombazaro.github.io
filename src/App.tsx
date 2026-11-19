@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import GlowTrail from './components/GlowTrail';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import Models from './components/Models';
 import Projects from './components/Projects';
 import Services from './components/Services';
 import SkipLink from './components/SkipLink';
@@ -22,6 +23,7 @@ export default function App() {
         <Hero />
         <Projects />
         <Services />
+        <Models />
         <About />
         <Contact />
       </main>
