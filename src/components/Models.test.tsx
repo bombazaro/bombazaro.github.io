@@ -8,10 +8,10 @@ test('Models_is_a_section_with_id_modelos_and_an_h2', () => {
   expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(/seu site/i);
 });
 
-test('Models_shows_the_six_models_in_order', () => {
+test('Models_shows_every_model_in_order', () => {
   render(<Models />);
   const titles = screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent);
-  expect(titles).toEqual(['Barbearia', 'Salão de beleza', 'Padaria', 'Pet shop', 'Oficina', 'Restaurante']);
+  expect(titles).toEqual(['Barbearia', 'Salão de beleza', 'Padaria', 'Pet shop', 'Oficina', 'Restaurante', 'Relojoaria e joalheria']);
 });
 
 test('every_model_card_opens_its_published_demo_in_a_new_tab', () => {
