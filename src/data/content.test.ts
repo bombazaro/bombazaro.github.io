@@ -111,7 +111,7 @@ test('no_action_links_to_a_private_repository', () => {
 });
 
 test('site_models_are_six_published_demos_without_prices', () => {
-  expect(siteModels.map((m) => m.id)).toEqual(['barbearia', 'salao', 'padaria', 'petshop', 'oficina', 'restaurante', 'relojoaria', 'academia']);
+  expect(siteModels.map((m) => m.id)).toEqual(['barbearia', 'salao', 'padaria', 'petshop', 'oficina', 'restaurante', 'relojoaria', 'academia', 'consultorio']);
   siteModels.forEach((m) => expect(m.href).toBe(`https://bombazaro-${m.id}.pages.dev/`));
   expect(JSON.stringify(siteModels)).not.toMatch(/R\$|\d+\s*reais/i);
 });
