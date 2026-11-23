@@ -1,7 +1,7 @@
 # Portfólio: Bernardo Silva Bombazaro (design curto)
 
 ## Intenção
-Um site único que serve a dois objetivos: (1) vender sites para pequenos negócios da região
+Um site único que serve a dois objetivos: (1) vender sites para pequenos e grandes negócios
 (Instagram já criado) e (2) conseguir vaga na área de desenvolvimento de software.
 O portfólio é do Bernardo como **desenvolvedor**. Nenhum projeto (padaria, Fluxus, Livrum)
 define a identidade visual; todos aparecem só como cards.
