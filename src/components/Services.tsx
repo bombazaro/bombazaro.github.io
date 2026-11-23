@@ -12,7 +12,7 @@ export default function Services() {
           <h2>
             Sites simples que <span className="grad">funcionam</span>.
           </h2>
-          <p className="sub">Atendo pequenos negócios da região. Você conta o que precisa e eu cuido do resto.</p>
+          <p className="sub">Atendo pequenos e grandes negócios. Você conta o que precisa e eu cuido do resto.</p>
         </Reveal>
         <div className="services">
           {services.map((service, i) => (

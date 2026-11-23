@@ -13,7 +13,7 @@ export default function Contact() {
             Vamos tirar seu negócio <span className="grad">do papel</span>?
           </h2>
           <p>
-            Faço sites para pequenos negócios da região. Me chame no WhatsApp ou no Instagram e conte o que você
+            Faço sites para pequenos e grandes negócios. Me chame no WhatsApp ou no Instagram e conte o que você
             precisa. Também aceito conversar sobre vagas.
           </p>
           <div className="cta">
