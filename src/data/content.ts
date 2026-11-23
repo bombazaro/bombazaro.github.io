@@ -124,6 +124,7 @@ export const siteModels: SiteModel[] = [
   { id: 'relojoaria', title: 'Relojoaria e joalheria', href: 'https://bombazaro-relojoaria.pages.dev/', image: modelImage('relojoaria', 'Relojoaria e joalheria') },
   { id: 'academia', title: 'Academia', href: 'https://bombazaro-academia.pages.dev/', image: modelImage('academia', 'Academia') },
   { id: 'consultorio', title: 'Consultório odontológico', href: 'https://bombazaro-consultorio.pages.dev/', image: modelImage('consultorio', 'Consultório odontológico') },
+  { id: 'manutencao', title: 'Serviços de manutenção', href: 'https://bombazaro-manutencao.pages.dev/', image: modelImage('manutencao', 'Serviços de manutenção') },
 ];
 
 export const quoteMessage = 'Olá, Bernardo! Vi seu portfólio e quero pedir um orçamento de site.';
