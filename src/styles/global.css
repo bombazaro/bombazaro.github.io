@@ -265,9 +265,23 @@ footer { padding: 36px 0 44px; color: var(--dim); font-size: 14px; text-align: c
 @media (max-width: 900px) { .services { grid-template-columns: 1fr; } }
 
 /* modelos de site */
-.models { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.models > li { display: flex; min-width: 0; }
-.models > li > .rv { display: flex; flex: 1; }
+.models-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.models-count { font-size: 13px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+.models-nav { display: flex; gap: 10px; }
+.models-btn {
+  display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--line); color: #fff; cursor: pointer;
+  transition: background .2s, border-color .2s, opacity .2s;
+}
+.models-btn:hover:not(:disabled) { background: var(--surface2); border-color: var(--violet2); }
+.models-btn:disabled { opacity: .35; cursor: default; }
+.models {
+  list-style: none; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 40px) / 3); gap: 20px;
+  overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none;
+  padding: 4px 2px 8px; margin: -4px -2px 0;
+}
+.models::-webkit-scrollbar { display: none; }
+.models > li { display: flex; min-width: 0; scroll-snap-align: start; }
 .mcard { flex: 1; display: flex; flex-direction: column; padding: 12px 12px 18px; color: inherit; text-decoration: none; }
 .mcard .shot { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #0a0818; aspect-ratio: 16 / 10; }
 .mcard .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .5s; }
@@ -275,7 +289,10 @@ footer { padding: 36px 0 44px; color: var(--dim); font-size: 14px; text-align: c
 .mcard h3 { font-size: 19px; margin: 14px 6px 2px; }
 .mcard-link { margin: 0 6px; font-size: 14.5px; font-weight: 600; color: var(--violet2); }
 .mcard:hover .mcard-link { text-decoration: underline; text-underline-offset: 3px; }
-@media (max-width: 900px) { .models { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+@media (max-width: 900px) { .models { grid-auto-columns: calc((100% - 14px) / 2); gap: 14px; } }
+@media (max-width: 600px) {
+  .models { grid-auto-columns: 82%; margin-right: -24px; padding-right: 24px; scroll-padding-left: 2px; }
+}
 @media (max-width: 480px) { .mcard { padding: 8px 8px 14px; } .mcard h3 { font-size: 16px; margin-top: 10px; } .mcard-link { font-size: 13.5px; } }
 @media (prefers-reduced-motion: reduce) { .mcard:hover .shot img { transform: none; } .mcard .shot img { transition: none; } }
 

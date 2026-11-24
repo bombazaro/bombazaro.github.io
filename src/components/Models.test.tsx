@@ -33,3 +33,10 @@ test('every_model_card_has_a_screenshot_with_alt_text', () => {
     expect(img.getAttribute('src')).toMatch(/\/modelos\/[a-z]+\.webp$/);
   });
 });
+
+test('Models_carousel_has_labelled_prev_and_next_buttons', () => {
+  render(<Models />);
+  expect(screen.getByRole('region', { name: 'Modelos de site' })).not.toBeNull();
+  expect(screen.getByRole('button', { name: 'Ver modelos anteriores' })).toBeDisabled();
+  expect(screen.getByRole('button', { name: 'Ver próximos modelos' })).toBeInTheDocument();
+});
