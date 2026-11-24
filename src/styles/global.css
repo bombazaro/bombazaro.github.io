@@ -264,36 +264,88 @@ footer { padding: 36px 0 44px; color: var(--dim); font-size: 14px; text-align: c
 .services-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 @media (max-width: 900px) { .services { grid-template-columns: 1fr; } }
 
-/* modelos de site */
-.models-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
-.models-count { font-size: 13px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
-.models-nav { display: flex; gap: 10px; }
-.models-btn {
-  display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;
-  background: var(--surface); border: 1px solid var(--line); color: #fff; cursor: pointer;
-  transition: background .2s, border-color .2s, opacity .2s;
+/* modelos de site: carrossel */
+.models-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.models-count { font-family: ui-monospace, Consolas, monospace; font-size: 14px; color: var(--muted); letter-spacing: .06em; }
+.models-count-num { font-size: 22px; font-weight: 700; color: #fff; }
+.models-count-sep { color: var(--violet2); }
+.models-hint { font-size: 14px; color: var(--muted); }
+
+.models-stage { position: relative; }
+.models-stage::before, .models-stage::after {
+  content: ""; position: absolute; top: 0; bottom: 8px; width: 90px; z-index: 2; pointer-events: none;
+  opacity: 0; transition: opacity .3s;
 }
-.models-btn:hover:not(:disabled) { background: var(--surface2); border-color: var(--violet2); }
-.models-btn:disabled { opacity: .35; cursor: default; }
+.models-stage::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+.models-stage::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+.models-stage.fade-l::before, .models-stage.fade-r::after { opacity: 1; }
+
 .models {
-  list-style: none; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 40px) / 3); gap: 20px;
+  list-style: none; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 60px) / 3.3); gap: 20px;
   overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none;
-  padding: 4px 2px 8px; margin: -4px -2px 0;
+  padding: 6px 2px 14px; margin: -6px -2px -6px;
 }
 .models::-webkit-scrollbar { display: none; }
 .models > li { display: flex; min-width: 0; scroll-snap-align: start; }
+
+.models-btn {
+  position: absolute; top: 36%; z-index: 3; transform: translateY(-50%);
+  display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%;
+  background: rgba(13, 10, 31, .82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(192, 132, 252, .55); color: #fff; cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .45), 0 0 0 4px rgba(124, 58, 237, .12);
+  transition: opacity .25s, transform .25s, background .2s, border-color .2s, box-shadow .2s;
+}
+.models-btn.prev { left: -27px; }
+.models-btn.next { right: -27px; }
+.models-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7c3aed, #a855f7); border-color: transparent;
+  box-shadow: 0 12px 34px rgba(124, 58, 237, .5);
+}
+.models-btn.prev:hover:not(:disabled) { transform: translateY(-50%) translateX(-2px); }
+.models-btn.next:hover:not(:disabled) { transform: translateY(-50%) translateX(2px); }
+.models-btn:disabled { opacity: 0; pointer-events: none; transform: translateY(-50%) scale(.8); }
+.models-btn.next:not(:disabled) svg { animation: models-nudge 2.4s ease-in-out 1.2s 3; }
+@keyframes models-nudge { 0%, 100% { transform: none; } 50% { transform: translateX(3px); } }
+
 .mcard { flex: 1; display: flex; flex-direction: column; padding: 12px 12px 18px; color: inherit; text-decoration: none; }
+.mcard:hover { transform: translateY(-4px); }
 .mcard .shot { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #0a0818; aspect-ratio: 16 / 10; }
 .mcard .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .5s; }
 .mcard:hover .shot img { transform: scale(1.04); }
 .mcard h3 { font-size: 19px; margin: 14px 6px 2px; }
 .mcard-link { margin: 0 6px; font-size: 14.5px; font-weight: 600; color: var(--violet2); }
 .mcard:hover .mcard-link { text-decoration: underline; text-underline-offset: 3px; }
-@media (max-width: 900px) { .models { grid-auto-columns: calc((100% - 14px) / 2); gap: 14px; } }
+
+.models-dots { display: flex; justify-content: center; gap: 4px; margin-top: 16px; }
+.models-dot {
+  position: relative; width: 24px; height: 24px; border: 0; background: none; cursor: pointer;
+  transition: width .3s ease;
+}
+.models-dot::before {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; border-radius: 999px;
+  transform: translate(-50%, -50%); background: rgba(255, 255, 255, .22); transition: width .3s ease, background .3s;
+}
+.models-dot:hover::before { background: rgba(255, 255, 255, .45); }
+.models-dot.on { width: 36px; }
+.models-dot.on::before { width: 28px; background: linear-gradient(90deg, #7c3aed, #c084fc); }
+
+@media (max-width: 1199px) { .models-btn.prev { left: -14px; } .models-btn.next { right: -14px; } }
+@media (max-width: 900px) { .models { grid-auto-columns: calc((100% - 28px) / 2.2); gap: 14px; } }
 @media (max-width: 600px) {
-  .models { grid-auto-columns: 82%; margin-right: -24px; padding-right: 24px; scroll-padding-left: 2px; }
+  .models { grid-auto-columns: 80%; margin-right: -24px; padding-right: 24px; scroll-padding-left: 2px; }
+  .models-stage::after { right: -24px; width: 60px; }
+  .models-stage::before { width: 40px; }
+  .models-btn { width: 44px; height: 44px; top: 34%; }
+  .models-btn.prev { left: -8px; }
+  .models-btn.next { right: -8px; }
+  .models-hint { display: none; }
 }
 @media (max-width: 480px) { .mcard { padding: 8px 8px 14px; } .mcard h3 { font-size: 16px; margin-top: 10px; } .mcard-link { font-size: 13.5px; } }
-@media (prefers-reduced-motion: reduce) { .mcard:hover .shot img { transform: none; } .mcard .shot img { transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .mcard:hover, .mcard:hover .shot img { transform: none; }
+  .mcard .shot img, .models-btn, .models-dot, .models-dot::before { transition: none; }
+  .models-btn.next svg { animation: none !important; }
+}
 
 main:focus { outline: none; }
