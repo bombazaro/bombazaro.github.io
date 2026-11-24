@@ -34,9 +34,17 @@ test('every_model_card_has_a_screenshot_with_alt_text', () => {
   });
 });
 
-test('Models_carousel_has_labelled_prev_and_next_buttons', () => {
+test('Models_carousel_has_labelled_prev_and_next_buttons_and_type_tabs', () => {
   render(<Models />);
   expect(screen.getByRole('region', { name: 'Modelos de site' })).not.toBeNull();
-  expect(screen.getByRole('button', { name: 'Ver modelos anteriores' })).toBeDisabled();
-  expect(screen.getByRole('button', { name: 'Ver próximos modelos' })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Ver modelo anterior' })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Ver próximo modelo' })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Barbearia' })).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('Models_next_button_moves_to_the_next_model', async () => {
+  const { container } = render(<Models />);
+  screen.getByRole('button', { name: 'Ver próximo modelo' }).click();
+  expect(await screen.findByRole('button', { name: siteModels[1].title, pressed: true })).toBeInTheDocument();
+  expect(container.querySelectorAll('.spot-item.is-on')).toHaveLength(1);
 });

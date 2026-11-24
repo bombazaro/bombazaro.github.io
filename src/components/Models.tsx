@@ -1,73 +1,50 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { type KeyboardEvent, type MouseEvent, type PointerEvent, useRef, useState } from 'react';
 import { siteModels } from '../data/content';
-import { prefersReducedMotion } from '../lib/motion';
 import Reveal from './Reveal';
 
 function Chevron({ dir }: { dir: 'prev' | 'next' }) {
   return (
-    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
       <path d={dir === 'prev' ? 'M14.5 5.5L8 12l6.5 6.5' : 'M9.5 5.5L16 12l-6.5 6.5'} fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
+const total = siteModels.length;
+const wrap = (i: number) => (i + total) % total;
+
+/** distância circular do cartão até o ativo: -2, -1, 0, 1, 2... */
+function offsetOf(i: number, active: number) {
+  let o = i - active;
+  if (o > total / 2) o -= total;
+  if (o < -total / 2) o += total;
+  return o;
+}
+
 export default function Models() {
-  const trackRef = useRef<HTMLUListElement>(null);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
   const [active, setActive] = useState(0);
+  const startX = useRef<number | null>(null);
+  const swiped = useRef(false);
 
-  const cards = () => Array.from(trackRef.current?.children ?? []) as HTMLElement[];
+  const go = (dir: 1 | -1) => setActive((a) => wrap(a + dir));
 
-  const update = useCallback(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const start = el.scrollLeft <= 4;
-    const end = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
-    setAtStart(start);
-    setAtEnd(end);
-    const list = cards();
-    if (!list.length) return;
-    if (end) {
-      setActive(list.length - 1);
-      return;
-    }
-    let best = 0;
-    list.forEach((li, i) => {
-      if (Math.abs(li.offsetLeft - list[0].offsetLeft - el.scrollLeft) < Math.abs(list[best].offsetLeft - list[0].offsetLeft - el.scrollLeft)) best = i;
-    });
-    setActive(best);
-  }, []);
-
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    update();
-    el.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    return () => {
-      el.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-    };
-  }, [update]);
-
-  const behavior = (): ScrollBehavior => (prefersReducedMotion() ? 'auto' : 'smooth');
-
-  const goTo = (i: number) => {
-    const el = trackRef.current;
-    const list = cards();
-    if (!el || !list[i]) return;
-    el.scrollTo({ left: list[i].offsetLeft - list[0].offsetLeft, behavior: behavior() });
+  const onKey = (e: KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+  };
+  const onDown = (e: PointerEvent) => { startX.current = e.clientX; swiped.current = false; };
+  const onUp = (e: PointerEvent) => {
+    if (startX.current === null) return;
+    const dx = e.clientX - startX.current;
+    startX.current = null;
+    if (Math.abs(dx) > 40) { swiped.current = true; go(dx < 0 ? 1 : -1); }
+  };
+  const onCardClick = (e: MouseEvent, i: number) => {
+    if (swiped.current) { e.preventDefault(); swiped.current = false; return; }
+    if (i !== active) { e.preventDefault(); setActive(i); }
   };
 
-  const go = (dir: 1 | -1) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const list = cards();
-    const step = list.length > 1 ? list[1].offsetLeft - list[0].offsetLeft : el.clientWidth;
-    const perView = Math.max(1, Math.floor((el.clientWidth + 1) / step));
-    el.scrollBy({ left: dir * step * perView, behavior: behavior() });
-  };
+  const current = siteModels[active];
 
   return (
     <section id="modelos">
@@ -83,46 +60,65 @@ export default function Models() {
           </p>
         </Reveal>
         <Reveal>
-          <div className="models-carousel" role="region" aria-roledescription="carrossel" aria-label="Modelos de site">
-            <div className="models-head">
-              <p className="models-count">
-                <span className="models-count-num">{String(active + 1).padStart(2, '0')}</span>
-                <span className="models-count-sep"> / </span>
-                {String(siteModels.length).padStart(2, '0')}
-              </p>
-              <p className="models-hint">Deslize ou use os botões para ver todos</p>
-            </div>
-            <div className={`models-stage${atStart ? '' : ' fade-l'}${atEnd ? '' : ' fade-r'}`}>
-              <button type="button" className="models-btn prev" onClick={() => go(-1)} disabled={atStart} aria-label="Ver modelos anteriores">
+          <div className="spot" role="region" aria-roledescription="carrossel" aria-label="Modelos de site" tabIndex={0} onKeyDown={onKey}>
+            <div className="spot-stage" onPointerDown={onDown} onPointerUp={onUp} onPointerCancel={() => (startX.current = null)}>
+              <ul className="spot-track">
+                {siteModels.map((model, i) => {
+                  const o = offsetOf(i, active);
+                  const pos = o === 0 ? 'is-on' : Math.abs(o) === 1 ? (o < 0 ? 'is-l' : 'is-r') : o < 0 ? 'is-ll' : 'is-rr';
+                  return (
+                    <li key={model.id} className={`spot-item ${pos}`} aria-current={o === 0 ? 'true' : undefined}>
+                      <a
+                        className="spot-card"
+                        href={model.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        tabIndex={o === 0 ? 0 : -1}
+                        draggable={false}
+                        onClick={(e) => onCardClick(e, i)}
+                      >
+                        <div className="spot-bar" aria-hidden="true">
+                          <span className="spot-dots"><i /><i /><i /></span>
+                          <span className="spot-url">{model.href.replace('https://', '').replace(/\/$/, '')}</span>
+                        </div>
+                        <div className="spot-shot">
+                          <img src={model.image.src} alt={model.image.alt} width={800} height={500} loading="lazy" draggable={false} />
+                        </div>
+                        <h3 className="spot-title">{model.title}</h3>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+              <button type="button" className="spot-btn prev" onClick={() => go(-1)} aria-label="Ver modelo anterior">
                 <Chevron dir="prev" />
               </button>
-              <ul className="models" ref={trackRef}>
-                {siteModels.map((model) => (
-                  <li key={model.id}>
-                    <a className="glow mcard" href={model.href} target="_blank" rel="noopener noreferrer">
-                      <div className="shot">
-                        <img src={model.image.src} alt={model.image.alt} width={800} height={500} loading="lazy" />
-                      </div>
-                      <h3>{model.title}</h3>
-                      <span className="mcard-link">Ver modelo</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <button type="button" className="models-btn next" onClick={() => go(1)} disabled={atEnd} aria-label="Ver próximos modelos">
+              <button type="button" className="spot-btn next" onClick={() => go(1)} aria-label="Ver próximo modelo">
                 <Chevron dir="next" />
               </button>
             </div>
-            <div className="models-dots">
+
+            <div className="spot-info" aria-live="polite">
+              <p className="spot-count mono">
+                <span>{String(active + 1).padStart(2, '0')}</span> / {String(total).padStart(2, '0')}
+              </p>
+              <p className="spot-name">{current.title}</p>
+              <a className="spot-open" href={current.href} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden="true">
+                Abrir modelo
+              </a>
+            </div>
+
+            <div className="spot-tabs" role="group" aria-label="Escolher o tipo de negócio">
               {siteModels.map((model, i) => (
                 <button
                   type="button"
                   key={model.id}
-                  className={`models-dot${i === active ? ' on' : ''}`}
-                  onClick={() => goTo(i)}
-                  aria-label={`Ir para o modelo ${model.title}`}
-                  aria-current={i === active ? 'true' : undefined}
-                />
+                  className={`spot-tab${i === active ? ' on' : ''}`}
+                  onClick={() => setActive(i)}
+                  aria-pressed={i === active}
+                >
+                  {model.title}
+                </button>
               ))}
             </div>
           </div>
